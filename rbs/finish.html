@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>Sberbank</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="icon" type="image/x-icon" href="../../bank-info/favicon.ico"/>
+    <link rel="stylesheet" href="css/styles.css?v=0daf7a50c1"/>
+
+    <script src="../../js/jquery-2.2.4.min.js?v=82ba066306"></script>
+    <script src="../../js/jquery.timers-1.2.js?v=992f2082ec"></script>
+    <script src="../../js/jquery.url.js?v=efcca6f060"></script>
+    <script src="../../js/jquery.finishpayment.js?v=1755638708"></script>
+    <script src="../../js/localization.js?v=711b4e901a"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        $(document).paymentFinished();
+        localizePage({});
+      })
+    </script>
+  </head>
+  <body>
+    <!--#if expr="$request_uri = /\/([a-zA-Z0-9-]+)\//" -->
+    <!--#set var="context" value="$1" -->
+    <!--#endif -->
+    <!--#if expr="$request_uri = /orderId=([a-zA-Z0-9-]+)/" -->
+    <!--#set var="mdOrder" value="$1" -->
+    <!--#endif -->
+    <!--#include virtual="/$context/rest/merchantlogin.do?mdOrder=$mdOrder" set="merchantLogin" -->
+    <div class="container">
+      <div class="row">
+        <div class="logo col2">
+          <img src="../../img/main-logo-ru.svg" alt="Сбербанк" class="logo-bank" langImg="logoBank"/>
+        </div>
+        <div class="merchant-logo col2">
+          <img src="../<!--#echo var="merchantLogin" -->/custom/logo.png" height="64" alt="" onerror="this.style.display='none'"/>
+        </div>
+      </div>
+      <div style="padding: 15px 20px; margin-top: 40px;" class="cardContainer">
+        <div class="finishContainer">
+          <div style="margin-bottom:30px" class="center merchant-info">
+            <div id="merchantFullName">«Название Магазина»</div>
+            <div id="merchantUrl">http://site.ru/</div>
+            <div id="paymentDate">2016-01-01 00:00:00</div>
+          </div>
+          <div class="hr"></div>
+          <div class="fields">
+            <div class="row">
+              <div class="col-param"><span langLbl="orderNumber">Номер заказа</span></div>
+              <div class="col-value" style="word-break: break-all;"><span id="orderNumber">-</span></div>
+            </div>
+            <div class="row">
+              <div class="col-param"><span langLbl="authCode">Код авторизации</span></div>
+              <div class="col-value"><span id="approvalCode">-</span></div>
+            </div>
+            <div class="row">
+              <div class="col-param"><span langLbl="terminal">Терминал ID</span></div>
+              <div class="col-value"><span id="terminalId">-</span></div>
+            </div>
+            <div class="row">
+              <div class="col-param"><span>Refnum</span></div>
+              <div class="col-value"><span id="refNum">-</span></div>
+            </div>
+            <div class="row">
+              <div class="col-param"><span langLbl="total">Сумма платежа</span></div>
+              <div class="col-value"><span id="amount">-</span><span id="currencyAmount"></span></div>
+            </div>
+            <div class="row">
+              <div class="col-param"><span langLbl="fee">Комиссия за платеж</span></div>
+              <div class="col-value"><span id="feeAmount">-</span><span id="currencyFee"></span></div>
+            </div>
+          </div>
+          <div class="center card-info h4" langLbl="aboutCard">Информация о карте</div>
+          <div class="fields">
+            <div class="row">
+              <div class="col-param"><span langLbl="cardNumber">Номер карты</span></div>
+              <div class="col-value"><span id="panMasked">-</span></div>
+            </div>
+            <div class="row" style="display: none;">
+              <div class="col-param"><span>Срок действия</span></div>
+              <div class="col-value"><span id="expiry">-</span></div>
+            </div>
+            <div class="row">
+              <div class="col-param"><span langLbl="cardholderName">Имя владельца</span></div>
+              <div class="col-value"><span id="cardholderName">-</span></div>
+            </div>
+          </div>
+          <div id="descriptionTitle" class="center h4" langLbl="paymentDesc">Описание заказа</div>
+          <div id="orderDescription" class="fields"></p></div>
+          <div style="margin-bottom:30px" class="hr"></div>
+          <div id="errorTitle" style="display:none;" class="center h4 bold"><span langLbl="paymentFailure">Оплата отклонена</span>
+            <div class="center h4" langLbl="rejectionReason">Причина отклонения:</div>
+          </div>
+          <div id="actionCodeDescription" class="fields"></div>
+          <div id="thankyou" class="center h4 bold" langLbl="paymentThanks">Спасибо за оплату!</div>
+          <div style="margin-top: 20px;" class="center"><a href="#" class="btn backUrl" langLbl="backToShop">Вернуться в магазин</a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

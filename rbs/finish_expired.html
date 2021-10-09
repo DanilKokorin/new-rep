@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>ПАО Сбербанк</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="icon" type="image/x-icon" href="../../bank-info/favicon.ico" />
+  <link rel="stylesheet" href="../../css/finish_expired_styles.css?v=d55e8fb53e" />
+
+  <script src="../../js/jquery-2.2.4.min.js?v=82ba066306"></script>
+  <script src="../../js/jquery.url.js?v=efcca6f060"></script>
+  <script src="../../js/localization.js?v=711b4e901a"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var lang = $.url.param("lang") || $.url.param("language");
+      var info;
+      if (lang === "ru") {
+        info = "Информация по заказу устарела";
+      } else {
+        info = "Order information expired";
+        $("#bankLogo").attr("src", '../../img/main-logo-en.svg');
+        $("#bankLogo").attr("alt", 'Sberbank');
+        document.title = "Sberbank";
+      }
+      $("#orderExpiredInfo").text(info);
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="logo col2">
+        <img id="bankLogo" src="../../img/main-logo-ru.svg" alt="Сбербанк" class="logo-bank" />
+      </div>
+    </div>
+    <div style="padding: 20px; margin-top: 50px;" class="cardContainer">
+      <div id="orderExpiredInfo" class="center h4 bold"></div>
+    </div>
+  </div>
+</body>
+</html>
